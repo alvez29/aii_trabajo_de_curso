@@ -1,0 +1,63 @@
+{% extends 'base2.html' %} {% block contenido %} {% if mensaje %}
+<div class="alert alert-danger" role="alert">No hay juegos en la
+	base de datos. Vuelve al inicio y sigue los pasos.</div>
+{% endif %} {% if juegos %}
+<div style="margin-top: 3%;" id="accordion">
+
+	{% for juego in juegos %}
+	<div class="card">
+		<div style="width: 100%; display: table;">
+		<div style="display: table-row;" class="card-header" id="headingTwo">
+			<div style="display: table-cell">
+			<h2 class="mb-0">
+				<img alt="{{juego.nombre}}" src="{{juego.url_imagen}}">
+				<button class="font-weight-bold" data-toggle="collapse"
+					data-target="#collapse{{juego.idJuego}}" aria-expanded="false"
+					aria-controls="collapseTwo">{{juego.nombre}}</button>
+								
+			</h2>
+			</div>
+			<div style="height: 100%;display: flex;float:right;margin-right:50px;text-align:center;" ><button class="btn btn-dark">{{juego.puntuacion_critica}}</button></div>
+		</div>
+		</div>
+		<div id="collapse{{juego.idJuego}}" class="collapse"
+			aria-labelledby="headingTwo" data-parent="#accordion">
+			<div class="card-body">
+				<div><strong>{{juego.desarrolladora}}</strong></div>
+				<br>
+				<div><strong>Fecha de salida: </strong>{{juego.fecha}}</div>
+				<div>
+				<strong>Descripcion: </strong>
+				
+					{% if juego.descripcion == '[]' %}
+				 		Sin descripcion 
+				 	{% else %}
+						{{juego.descripcion}}
+					{% endif %}					
+				</div>
+				<br>
+				<div id="generosList">
+					<strong>Generos</strong>
+					<ul class="list-group list-group-flush">
+					{% for genero in juego.generos.all %}
+  						<li class="list-group-item">{{genero.nombre}}</li> 
+					{% endfor %}
+					</ul>					
+				</div>
+				<br>
+				<div>
+					<a type='submit' class='btn btn-secondary btn-lg' href="/valoraciones/?idJuego={{juego.idJuego}}">Valoraciones</a>
+				</div>
+				<div>
+					<a type='submit' class='btn btn-secondary btn-lg' href="/busqueda/explorar/valoraciones/juego?idJuego={{juego.idJuego}}">Explorar valoraciones de este juego</a>
+				</div> 
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+{% endif %}
+
+<script>
+</script>
+{% endblock %}

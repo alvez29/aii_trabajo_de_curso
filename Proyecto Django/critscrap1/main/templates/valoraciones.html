@@ -1,0 +1,28 @@
+{% extends 'base2.html' %} {% block contenido %} {% if mensaje %}
+<div class="alert alert-danger" role="alert">No hay juegos en la
+	base de datos. Vuelve al inicio y sigue los pasos.</div>
+{% endif %} {% if valoraciones %}
+<h1 class="display-3" style="margin-top:20px">{{nombreJuego}}</h1>
+<ul class="list-group list-group-flush">
+	{%for valoracion in valoraciones %}
+		<li class="list-group-item">
+			<h4>
+			<strong>{{valoracion.usuario}}</strong> 
+			{% if valoracion.fecha|date:"Y" == 1800 %}
+				Sin fecha registrada
+			{% else %}
+				{{valoracion.fecha}}
+			{% endif %} 
+			<br>
+			<strong>Puntuacion: </strong> {{valoracion.puntuacion}}
+			<br>
+			</h4>
+			<h5>"{{valoracion.texto}}"</h5>
+		</li>
+	{% endfor %}
+</ul>
+{% endif %}
+
+<script>
+</script>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+  {% block contenido %}
+    <header class="jumbotron my-4">
+      <h1 class="display-3">Buenas!</h1>
+      <p class="lead">Antes de comenzar seleccione su plataforma:</p>
+    </header>
+    
+    <div class="row text-center">
+    {% if plataformas%}
+	    {% for plataforma in plataformas %} 
+	    <div class="col-lg-3 col-md-6 mb-4">
+	        <div class="card h-100">
+	          <img height='300px' width='200px' class="card-img-top" src="/static/images/{{plataforma.split|join:'_'}}_logo.png" alt="">
+	          <div class="card-body">
+	            <h4 class="card-title">{{plataforma}}</h4>
+	          </div>
+	          <div class="card-footer">
+	            <a href="/precarga?plataforma={{plataforma.split|join:'_'|lower}}" class="btn btn-primary">Seleccionar</a>
+	          </div>
+	        </div>
+	      </div>
+		{% endfor %}
+	{% endif %}
+	<form id="recargar-plataformas" method="post" action="">{% csrf_token %}
+		<button type='submit' class='btn btn-primary btn-lg' href='plataformas/recargar'>Haga click aqui para recargar las plataformas</button>
+	</form>
+		
+	</div>
+  {% endblock %}

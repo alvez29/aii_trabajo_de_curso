@@ -1,0 +1,45 @@
+{% extends 'base2.html' %}
+{% block contenido %} 
+
+{% if mensaje %}
+<div class="alert alert-danger" role="alert">No hay juegos en la
+	base de datos. Vuelve al inicio y sigue los pasos.</div>
+{% endif %}
+
+<h4 class="display-3" style="margin-top:20px">Explorar valoraciones</h4>
+
+<div>
+	<form id="form" method='post' action='' class='form'>{% csrf_token %}
+		<fieldset class="form-group">
+			<input class="form-control d-inline" type="text" name="entrada" id="entrada" placeholder="Texto de busqueda" />
+			<button class="btn btn-secondary btn-block d-inline mt-2" type="submit">Realizar búsqueda</button>
+		</fieldset>
+	</form>
+</div>
+{% if res %}
+<h1 class="display-3" style="margin-top:20px">{{nombreJuego}}</h1>
+<ul class="list-group list-group-flush">
+	{%for valoracion in res %}
+		<li class="list-group-item">
+			<h4><strong>{{valoracion.juego}}</strong></h4>
+			<h5>
+			<strong>- {{valoracion.usuario}} - </strong> 
+			{% if valoracion.fecha|date:"Y" == 1800 %}
+				Sin fecha registrada
+			{% else %}
+				{{valoracion.fecha|date:"d/m/Y"}}
+			{% endif %} 
+			<br>
+			<strong>- Score: </strong> {{valoracion.puntuacion}}
+			<br>
+			</h5>
+			<h6>"{{valoracion.texto}}"</h6>
+		</li>
+	{% endfor %}
+</ul>
+{% endif %}
+
+
+<script>
+</script>
+{% endblock %}

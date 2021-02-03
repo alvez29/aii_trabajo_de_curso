@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+  {% block contenido %}
+   <div class="row text-center">
+  
+   {% if numj and numv %}
+     <header class="jumbotron my-4">
+      <h1 class="display-3">Enhorabuena!</h1>
+      <p class="lead">Ha cargado los juegos y criticas correctamente!</p>
+      <p class="lead">Hay {{numj}} juegos en la base de datos con {{numv}} valoraciones.</p>
+      
+      <br>
+      <a type='submit' class='btn btn-primary btn-lg' href='/principal'>Haga click aqui para entrar en tu pagina</a>
+    </header>
+   {% else %}
+    <div class="row text-center">
+     <header class="jumbotron my-4">
+     	<h1 class="display-3">Ha habido un error!</h1>
+     	<br>
+	 	<a type='submit' class='btn btn-primary btn-lg' href='/inicio'>Vuelva a intentarlo</a>
+    </header>
+   {% endif %}
+   	</div>	
+   
+  {% endblock %}
